@@ -1,0 +1,31 @@
+大小端通常的判断：
+
+#include <stdio.h>
+
+int main()
+{
+	int a = 0x12345678;
+	printf("%d\n",a);
+	char *p = (char *)&a;
+	
+	printf("%x,%x,%x,%x\n",p[0],p[1],p[2],p[3]);
+	return 0;
+}
+
+下面代码，充分用到了Union的特性，共用存储空间，神笔啊
+
+
+#include <stdio.h>
+
+int main()
+{
+	union
+	{
+		short value;
+		char union_bytes[sizeof(short)];
+	}test;
+	test.value =0x1234;
+	printf("%x\n",test.union_bytes[0]);
+	
+	return 0;
+}
